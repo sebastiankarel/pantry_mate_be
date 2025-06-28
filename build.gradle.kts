@@ -30,6 +30,14 @@ dependencies {
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+
+	// db
+	implementation("org.flywaydb:flyway-core")
+	implementation("org.postgresql:r2dbc-postgresql")
+
+	// swagger ui
+	implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.9")
+
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 	annotationProcessor("org.projectlombok:lombok")
