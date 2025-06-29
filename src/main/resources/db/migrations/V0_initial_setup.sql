@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS inventory(
+    id SERIAL PRIMARY KEY
+    items JSONB NOT NULL
+)

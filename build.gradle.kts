@@ -33,14 +33,16 @@ dependencies {
 
 	// db
 	implementation("org.flywaydb:flyway-core")
-	implementation("org.postgresql:r2dbc-postgresql")
+	implementation("org.flywaydb:flyway-database-postgresql")
+	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+	runtimeOnly("org.postgresql:r2dbc-postgresql")
+	runtimeOnly("org.postgresql:postgresql")
 
 	// swagger ui
 	implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.9")
 
-	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
-	annotationProcessor("org.projectlombok:lombok")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
