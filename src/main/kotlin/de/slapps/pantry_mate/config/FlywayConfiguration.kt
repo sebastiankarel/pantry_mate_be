@@ -8,15 +8,16 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class FlywayConfiguration(
     @Value("\${spring.flyway.url}") private val url: String,
-    @Value("\${spring.flyway.user}") private val user: String,
-    @Value("\${spring.flyway.password}") private val password: String
+    @Value("\${spring.r2dbc.username}") private val user: String,
+    @Value("\${spring.r2dbc.password}") private val password: String
 ) {
 
     @Bean(initMethod = "migrate")
-    fun flyway(): Flyway {
-        return Flyway(
-            Flyway.configure()
-                .dataSource(url, user, password)
-        )
-    }
+    fun flyway() = Flyway
+        .configure()
+        .dataSource(url, user, password)
+        .locations("db/migration")
+        .baselineOnMigrate(true)
+        .validateMigrationNaming(true)
+        .load()
 }

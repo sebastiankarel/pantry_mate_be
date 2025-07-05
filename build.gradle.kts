@@ -48,6 +48,12 @@ dependencies {
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	// Testcontainer
+	testImplementation(platform("org.testcontainers:testcontainers-bom:1.20.6"))
+	testImplementation("org.testcontainers:testcontainers")
+	testImplementation("org.testcontainers:postgresql")
+	testImplementation("org.testcontainers:junit-jupiter")
 }
 
 kotlin {

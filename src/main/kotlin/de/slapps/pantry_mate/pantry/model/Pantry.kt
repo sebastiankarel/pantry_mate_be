@@ -1,10 +1,10 @@
-package de.slapps.pantry_mate.inventory.model
+package de.slapps.pantry_mate.pantry.model
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 
-@Table("inventory")
-data class Inventory(
+@Table("pantry", schema = "pantry_mate")
+data class Pantry(
     @Id val id: Int? = null,
-    val items: List<Item>,
+    val userId: Int,
 )
