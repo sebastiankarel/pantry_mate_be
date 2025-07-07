@@ -1,6 +1,6 @@
 package de.slapps.pantry_mate.pantry.model.dto
 
-data class PantryListDTO(
+data class PantryContentDTO(
     val userId: Int,
-    val pantries: List<PantryDTO>,
+    val pantryBoxes: List<PantryBoxDTO>,
 )
