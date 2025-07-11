@@ -1,6 +1,5 @@
 package de.slapps.pantry_mate.pantry
 
-import de.slapps.pantry_mate.pantry.model.PantryBox
 import de.slapps.pantry_mate.pantry.model.dto.PantryBoxDTO
 import de.slapps.pantry_mate.pantry.model.dto.PantryContentDTO
 import org.springframework.http.MediaType
@@ -18,7 +17,10 @@ class PantryController(
     private val pantryService: PantryService,
 ) {
 
-    @GetMapping("/{userId}")
+    @GetMapping(
+        path = ["/{userId}"],
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
     suspend fun getPantryContentForUser(@PathVariable userId: Int): ResponseEntity<PantryContentDTO> {
         return ResponseEntity.ok(pantryService.getPantryBoxesForUser(userId))
     }
