@@ -23,6 +23,16 @@ class GlobalExceptionHandler {
         return ResponseEntity("The user already exists.", HttpStatus.CONFLICT)
     }
 
+    @ExceptionHandler(PantryNotFoundException::class)
+    fun handlePantryNotFoundException(exception: PantryNotFoundException): ResponseEntity<String> {
+        return ResponseEntity("The pantry does not exist.", HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(PantryAlreadyExistsException::class)
+    fun handlePantryAlreadyExistsException(exception: PantryAlreadyExistsException): ResponseEntity<String> {
+        return ResponseEntity("The ppantry already exists.", HttpStatus.BAD_REQUEST)
+    }
+
     @ExceptionHandler(EmptyPantryBoxException::class)
     fun handleEmptyPantryBoxException(exception: EmptyPantryBoxException): ResponseEntity<String> {
         return ResponseEntity("Quantity must be at least 1.", HttpStatus.BAD_REQUEST)

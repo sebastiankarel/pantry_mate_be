@@ -1,1 +1,0 @@
-CREATE INDEX IF NOT EXISTS user_index ON pantry_mate."user"(username);

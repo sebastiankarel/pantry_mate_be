@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface PantryBoxRepository : CoroutineCrudRepository<PantryBox, Int> {
 
-    fun findAllByUserId(userId: Int): Flow<PantryBox>
+    fun findAllByPantryId(pantryId: Int): Flow<PantryBox>
 }
