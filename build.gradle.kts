@@ -38,6 +38,9 @@ dependencies {
 	runtimeOnly("org.postgresql:r2dbc-postgresql")
 	runtimeOnly("org.postgresql:postgresql")
 
+	// security
+	implementation("org.springframework.boot:spring-boot-starter-security")
+
 	// swagger ui
 	implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.9")
 
