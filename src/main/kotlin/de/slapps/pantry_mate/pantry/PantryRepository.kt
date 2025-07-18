@@ -8,7 +8,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface PantryRepository : CoroutineCrudRepository<Pantry, Int> {
 
-    suspend fun findByName(name: String): Pantry?
-
     fun findAllByUserId(userId: Int): Flow<Pantry>
 }

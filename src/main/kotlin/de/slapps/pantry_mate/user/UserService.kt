@@ -1,42 +1,42 @@
 package de.slapps.pantry_mate.user
 
-import de.slapps.pantry_mate.UserAlreadyExistsException
-import de.slapps.pantry_mate.UserNotFoundException
+import de.slapps.pantry_mate.errors.UserAlreadyExistsException
+import de.slapps.pantry_mate.errors.UserNotFoundException
 import de.slapps.pantry_mate.user.model.User
-import de.slapps.pantry_mate.user.model.dto.CreateUserResponseDTO
-import de.slapps.pantry_mate.user.model.dto.UserDTO
+import de.slapps.pantry_mate.user.model.dto.UserCreatedDTO
+import de.slapps.pantry_mate.user.model.dto.CreateUserDTO
+import de.slapps.pantry_mate.user.model.toUserCreatedDTO
+import de.slapps.pantry_mate.util.PantryMateClock
+import de.slapps.pantry_mate.util.toSHA256
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.dao.DuplicateKeyException
 import org.springframework.stereotype.Component
-import java.time.LocalDateTime
 
 @Component
 class UserService {
 
     @Autowired
     private lateinit var userRepository: UserRepository
+    @Autowired
+    private lateinit var clock: PantryMateClock
 
-    suspend fun createNewUser(userDTO: UserDTO): CreateUserResponseDTO {
-        val existingUser = userRepository.findByUsername(userDTO.username)
-        return if (existingUser == null) {
-            val user = User(
-                username = userDTO.username,
-                email = userDTO.email,
-                password = userDTO.password, // TODO HASH
-                createdOn = LocalDateTime.now(),
-            )
-            userRepository.save(user).id?.let {
-                CreateUserResponseDTO(
-                    userName = userDTO.username,
-                    userId = it,
-                )
-            } ?: throw UnknownError()
-        } else {
+    suspend fun createNewUser(userDTO: CreateUserDTO): UserCreatedDTO {
+        val user = User(
+            username = userDTO.username,
+            email = userDTO.email,
+            password = userDTO.password.toSHA256(),
+            createdOn = clock.now(),
+        )
+        return try {
+            userRepository.save(user).toUserCreatedDTO()
+        } catch (e: DuplicateKeyException) {
+            e.printStackTrace()
             throw UserAlreadyExistsException()
         }
     }
 
-    suspend fun deleteUser(userId: Int){
-        return if (userRepository.existsById(userId)) {
+    suspend fun deleteUser(userId: Int) {
+        if (userRepository.existsById(userId)) {
             userRepository.deleteById(userId)
         } else {
             throw UserNotFoundException()
