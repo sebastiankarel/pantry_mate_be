@@ -12,7 +12,7 @@ CREATE INDEX IF NOT EXISTS user_index ON pantry_mate."user"(username);
 
 CREATE TABLE IF NOT EXISTS pantry_mate.pantry(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(1024) UNIQUE NOT NULL,
+    name VARCHAR(1024) NOT NULL,
     user_id INT NOT NULL,
     created_on TIMESTAMP WITH TIME ZONE,
     CONSTRAINT fk_user

@@ -5,6 +5,8 @@ import de.slapps.pantry_mate.errors.PantryBoxNotFoundException
 import de.slapps.pantry_mate.errors.PantryNotFoundException
 import de.slapps.pantry_mate.errors.UserAlreadyExistsException
 import de.slapps.pantry_mate.errors.UserNotFoundException
+import de.slapps.pantry_mate.errors.InvalidCredentialsException
+import de.slapps.pantry_mate.errors.InvalidTokenException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -21,6 +23,18 @@ class GlobalExceptionHandler {
     @ExceptionHandler(UserAlreadyExistsException::class)
     fun handleUserAlreadyExistsException(exception: UserAlreadyExistsException): ResponseEntity<String> {
         return ResponseEntity("The user already exists.", HttpStatus.CONFLICT)
+    }
+
+    @ExceptionHandler(InvalidCredentialsException::class)
+    fun handleInvalidCredentialsException(
+        exception: InvalidCredentialsException,
+    ): ResponseEntity<String> {
+        return ResponseEntity("The credentials incorrect.", HttpStatus.UNAUTHORIZED)
+    }
+
+    @ExceptionHandler(InvalidTokenException::class)
+    fun handleInvalidTokenException(exception: InvalidTokenException): ResponseEntity<String> {
+        return ResponseEntity("The token is invalid or expired.", HttpStatus.UNAUTHORIZED)
     }
 
     @ExceptionHandler(PantryNotFoundException::class)
