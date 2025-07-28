@@ -2,7 +2,7 @@ package de.slapps.pantry_mate.user.model.dto
 
 data class UserCreatedDTO(
     val userId: Int,
-    val userName: String,
+    val username: String,
     val email: String,
 )
 

@@ -30,13 +30,13 @@ class SecurityConfig {
         authenticationWebFilter.setServerAuthenticationConverter(authConverter)
 
         return http
-            .authorizeExchange({ exchanges ->
+            .authorizeExchange { exchanges ->
                 exchanges
                     .pathMatchers(HttpMethod.POST, "/api/login", "/api/user/create")
                     .permitAll()
                     .anyExchange()
                     .authenticated()
-            })
+            }
             .addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
             .httpBasic { customizer -> customizer.disable() }
             .formLogin { customizer -> customizer.disable() }
